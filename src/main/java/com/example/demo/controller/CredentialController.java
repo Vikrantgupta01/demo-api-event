@@ -11,28 +11,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+
 
 @RestController
 public class CredentialController {
 
-	@Autowired
 	private CredentialService credentialService;
 
-	@Autowired
 	private UserValidator userValidator;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public List<Credential> getAll() {
-		return credentialService.getAll();
+
+	@Autowired
+	public CredentialController(CredentialService credentialService, UserValidator userValidator) {
+		this.credentialService = credentialService;
+		this.userValidator = userValidator;
 	}
-	
+
 	@PutMapping(value = "/update")
 	public ResponseEntity<String> updateCredentials(@Valid @RequestBody CredentialRequest request) {
-		userValidator.validate(request);
+		this.userValidator.validate(request);
 		Credential user = new Credential();
 		BeanUtils.copyProperties(request, user);
-		credentialService.updateCredentials(user);
+		this.credentialService.updateCredentials(user);
 		return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 	}
 

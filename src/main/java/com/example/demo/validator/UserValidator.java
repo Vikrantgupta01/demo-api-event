@@ -12,10 +12,14 @@ import java.util.Optional;
 @Component
 public class UserValidator {
 
-    @Autowired
     private CredentialRepository credentialRepository;
 
-    public void validate(CredentialRequest credential){
+    @Autowired
+    public UserValidator(CredentialRepository credentialRepository) {
+        this.credentialRepository = credentialRepository;
+    }
+
+    public boolean validate(CredentialRequest credential){
         if(!isEmailExist(credential.getEmail())){
             throw new DataValidationException("Email id doesnt exist in the system");
         }
@@ -23,6 +27,7 @@ public class UserValidator {
         if(!isPasswordMatches(credential)){
             throw new DataValidationException("passwords are not equal");
         }
+        return true;
     }
 
     private boolean isEmailExist(String email){
