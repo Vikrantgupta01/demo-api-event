@@ -16,7 +16,7 @@ By this command
   
 What happens at startup.
 1) One conatiner of postgress DB get started
-2) A table name `Credentails` gets created with two column email and password.
+2) A table name `credential` gets created with two column email and password.
 3) A dummy record get created with following value
   "email": "ABC1@gmail.com", "password": "Java2blog11",
 
@@ -41,4 +41,8 @@ Sample response :
     "status": 400,
     "error": "Email id doesnt exist in the system"
 }
+       
+       
+       
+       
        
